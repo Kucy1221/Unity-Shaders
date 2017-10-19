@@ -1,4 +1,6 @@
-﻿Shader "Custom/WibbleWobble"
+﻿/// This shader creates a wavy effect on the surface of whatever it is applied to
+ /// Check out the vert version for a different kind of wobble
+ Shader "Custom/WibbleWobble"
 {
 	Properties
 	{
@@ -46,10 +48,10 @@
 				float2 screenMid = float2(0.5, 0.5);
 				float2 fragtoMid = screenMid - i.uv;
 				float  dist = length(fragtoMid);
-				i.uv.x += (sin(dist * 10 + _Time[1])/50) + (cos(dist * 10 + _Time[2]) / 50)*dist;
-				i.uv.y += (sin(dist * 10 + _Time[0]) / 50) + (cos(dist * 10 + _Time[3]) / 50)*dist;
+				i.uv.x += (sin(dist * 10 + _Time[1])/50) + (cos(dist * 10 + _Time[2]) / 50)*dist; //wavy stuff happens here
+				i.uv.y += (sin(dist * 10 + _Time[0]) / 50) + (cos(dist * 10 + _Time[3]) / 50)*dist; // and here
 				fixed4 col = tex2D(_MainTex, i.uv ) /*+ (dist/3*(sin(_Time[2]))*fragtoMid))*/;
-				col = 1-col;
+				col = 1-col; //invert colors for added interest
 				//col.rgb *= .3 - dist;
 				return col; 
 			}
