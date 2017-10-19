@@ -1,2 +1,2 @@
 # Unity-Shaders
-Cool vert &amp; frag shaders written in cg and wrapped in shaderlab
+Some cool Shaderlab/cg shaders I wrote for Unity
