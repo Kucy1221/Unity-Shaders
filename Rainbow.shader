@@ -1,4 +1,6 @@
-﻿Shader "Custom/Rainbow"
+//Iterates a texture over the object's verts and extrudes the verts depending on their current color
+
+Shader "Custom/Rainbow"
 {
 	Properties
 	{
@@ -38,10 +40,10 @@
 			v2f vert (appdata v, float3 normal : NORMAL)
 			{
 				v2f o;
-				float4 coord = float4(v.uv.x * _Time[0] / 9, v.uv.y*_Time[0]/3.78 / 10, 0, 0);
+				float4 coord = float4(v.uv.x * _Time[0] / 9, v.uv.y*_Time[0]/3.78 / 10, 0, 0); // numbers are random, this line is what iterates over the texture.
 				float4 col = tex2Dlod(_RandTex, coord);
-				v.vertex.xyz += normalize(normal) * col.r * .5;
-				v.vertex.xyz -= normalize(normal) * col.b * .5;
+				v.vertex.xyz += normalize(normal) * col.r * .5; // pop out if the vert is red
+				v.vertex.xyz -= normalize(normal) * col.b * .5; // retract if the vert is blue
 				o.color = col;
 				o.vertex = UnityObjectToClipPos(v.vertex);
 				o.uv = TRANSFORM_TEX(v.uv, _MainTex);
